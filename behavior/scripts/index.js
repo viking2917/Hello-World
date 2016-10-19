@@ -43,16 +43,41 @@ exports.handle = function handle(client) {
 	}
     })
 
-const handleGoodbye = client.createStep({
-  satisfied() {
-    return false
-  },
+    const handleGoodbye = client.createStep({
+	satisfied() {
+	    return false
+	},
 
-  prompt() {
-    client.addTextResponse('Mahalo and Aloha!')
-    client.done()
-  }
-})
+	prompt() {
+	    client.addTextResponse('Mahalo and Aloha!')
+	    client.done()
+	}
+    })
+
+    // const collectCity = client.createStep({
+    // 	satisfied() {
+    // 	    return Boolean(client.getConversationState().weatherCity)
+    // 	},
+
+    // 	prompt() {
+    // 	    // Need to prompt user for city    
+    // 	    console.log('Need to ask user for city')
+    // 	    client.done()
+    // 	},
+    // })
+
+    const provideTrendingBook = client.createStep({
+	satisfied() {
+	    return false
+	},
+
+	prompt() {
+	    // Need to provide weather
+	    console.log('send trending book');
+	    client.done()
+	},
+    })
+
 
     client.runFlow({
 	classifications: {
@@ -65,7 +90,8 @@ const handleGoodbye = client.createStep({
 	    greeting: handleGreeting,
 	    main: 'onboarding',
 	    onboarding: [sayHello],
-	    end: [untrained]
+	    end: [untrained],
+	    getTrending: [provideTrendingBook],
 	}
   })
 }

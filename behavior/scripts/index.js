@@ -85,12 +85,11 @@ exports.handle = function handle(client) {
 	},
     })
 
-
     client.runFlow({
 	classifications: {
 	    goodbye: 'goodbye',
 	    greeting: 'greeting'
-	    // map inbound message classifications to names of streams
+	    // map inbound message  classifications to names of streams
 	},
 	streams: {
 	    goodbye: handleGoodbye,

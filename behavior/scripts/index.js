@@ -74,6 +74,13 @@ exports.handle = function handle(client) {
 	prompt() {
 	    // Need to provide weather
 	    console.log('send trending book');
+	    let weatherData = {
+		BookTitle: '50 Shades of Grey',
+		AuthorName: 'E.L. James',
+                BookLink: 'https://www.thehawaiiproject.com/book/The-Girl-on-the-Train--by--Paula-Hawkins--47665'
+	    }
+	    
+	    client.addResponse('app:response:name:provide_popular_book', weatherData)
 	    client.done()
 	},
     })

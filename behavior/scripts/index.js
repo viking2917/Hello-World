@@ -75,7 +75,7 @@ exports.handle = function handle(client) {
 	    // Need to provide weather
 	    console.log('send trending book');
 	    let weatherData = {
-		BookTitle: '50 Shades of Gray',
+		BookTitle: '50 Shades of Grey',
 		AuthorName: 'E.L. James',
                 BookLink: 'https://www.thehawaiiproject.com/book/The-Girl-on-the-Train--by--Paula-Hawkins--47665'
 	    }

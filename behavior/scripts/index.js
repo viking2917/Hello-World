@@ -27,21 +27,45 @@ exports.handle = function handle(client) {
 
     prompt() {
       client.addResponse('app:response:name:apology/untrained')
-      client.done()
+	client.done()
     }
   })
 
-  client.runFlow({
-    classifications: {
-			// map inbound message classifications to names of streams
-    },
-    autoResponses: {
-      // configure responses to be automatically sent as predicted by the machine learning model
-    },
-    streams: {
-      main: 'onboarding',
-      onboarding: [sayHello],
-      end: [untrained]
-    }
+
+    const handleGreeting = client.createStep({
+	satisfied() {
+	    return false
+	},
+
+	prompt() {
+	    client.addTextResponse('Aloha!')
+	    client.done()
+	}
+    })
+
+const handleGoodbye = client.createStep({
+  satisfied() {
+    return false
+  },
+
+  prompt() {
+    client.addTextResponse('Mahalo and Aloha!')
+    client.done()
+  }
+})
+
+    client.runFlow({
+	classifications: {
+	    goodbye: 'goodbye',
+	    greeting: 'greeting'
+	    // map inbound message classifications to names of streams
+	},
+	streams: {
+	    goodbye: handleGoodbye,
+	    greeting: handleGreeting,
+	    main: 'onboarding',
+	    onboarding: [sayHello],
+	    end: [untrained]
+	}
   })
 }

@@ -88,7 +88,8 @@ exports.handle = function handle(client) {
 	streams: {
 	    goodbye: handleGoodbye,
 	    greeting: handleGreeting,
-	    main: 'onboarding',
+//	    main: 'onboarding',
+	    main: 'getTrending',
 	    onboarding: [sayHello],
 	    end: [untrained],
 	    getTrending: [provideTrendingBook],

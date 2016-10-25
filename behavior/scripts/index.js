@@ -1,6 +1,6 @@
 'use strict'
 
-require('urls');
+require('./lib/urls');
 const getTrending = require('./lib/getTrending')
 
 exports.handle = function handle(client) {

@@ -5,8 +5,8 @@ const request = require('request')
 module.exports = function getTrending(locationName, next) {
 
 
-    //const requestUrl = `http://api.openweathermap.org/data/2.5/weather?units=imperial&appid=${appId}&q=${locationName}`
-  const requestUrl = `http://www.thehawaiiproject.com/get_books_for_categories.php?format=json&whitelabel=0&l=15&o=0&categories=trending-books`
+    const requestUrl = `http://api.openweathermap.org/data/2.5/weather?units=imperial&appid=a7bd7ffb3b16c818c01ee4c5a88ccfc4&q=boston`
+    // const requestUrl = `http://www.thehawaiiproject.com/get_books_for_categories.php?format=json&whitelabel=0&l=15&o=0&categories=trending-books`
 
   console.log('Making HTTP GET request to:', requestUrl)
 

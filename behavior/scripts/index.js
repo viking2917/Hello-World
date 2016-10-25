@@ -1,7 +1,7 @@
 'use strict'
 
 
-const getCurrentWeather = require('./lib/getTrending')
+const getTrending = require('./lib/getTrending')
 
 exports.handle = function handle(client) {
 

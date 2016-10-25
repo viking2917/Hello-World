@@ -1,6 +1,6 @@
 'use strict'
 
-require('./lib/urls')
+const urlTools = require('./lib/urls')
 const getTrending = require('./lib/getTrending')
 
 exports.handle = function handle(client) {
@@ -57,23 +57,10 @@ exports.handle = function handle(client) {
 	}
     })
 
-    // const collectCity = client.createStep({
-    // 	satisfied() {
-    // 	    return Boolean(client.getConversationState().weatherCity)
-    // 	},
-
-    // 	prompt() {
-    // 	    // Need to prompt user for city    
-    // 	    console.log('Need to ask user for city')
-    // 	    client.done()
-    // 	},
-    // })
-
     const provideTrendingBook = client.createStep({
 	satisfied() {
 	    return false
 	},
-
 
 	prompt(callback) {
 	    getTrending('New York', resultBody => {
@@ -83,57 +70,40 @@ exports.handle = function handle(client) {
 		    return
 		}
 
-		const weatherDescription = (
-		    resultBody.books.length > 0 ?
-			resultBody.books[0].title :
-			null
-		)
-
-		const weatherData = {
+		const bookData = {
 		    BookTitle: resultBody.books[0].title,
 		    AuthorName: resultBody.books[0].authorstring,
-		    BookLink: 'https://www.thehawaiiproject.com/' + book_url(resultBody.books[0].title,resultBody.books[0].authorstring,resultBody.books[0].bookid),
-		    // 'https://www.thehawaiiproject.com/book/The-Girl-on-the-Train--by--Paula-Hawkins--47665'
-
-		    // temperature: resultBody.main.temp,
-		    // condition: weatherDescription,
-		    // city: resultBody.name,
+		    BookLink: 'https://www.thehawaiiproject.com/' + urlTools.book_url(resultBody.books[0].title,resultBody.books[0].authorstring,resultBody.books[0].bookid),
 		}
 
-		console.log('sending real weather:', weatherData)
-		client.addResponse('app:response:name:provide_popular_book', weatherData)
-		//client.addResponse('app:response:name:provide_weather/current', weatherData)
+		console.log('sending book data:', bookData)
+		client.addResponse('app:response:name:provide_popular_book', bookData)
 		client.done()
 		callback()
 	    })
 	},
-	// prompt() {
-	//     console.log('send trending book');
-	//     let weatherData = {
-	// 	BookTitle: '50 Shades of Gray',
-	// 	AuthorName: 'E.L. James',
-        //         BookLink: 'https://www.thehawaiiproject.com/book/The-Girl-on-the-Train--by--Paula-Hawkins--47665'
-	//     }
-	    
-	//     client.addResponse('app:response:name:provide_popular_book', weatherData)
-	//     client.done()
-	// },
     })
 
     client.runFlow({
 	classifications: {
+	    greeting: 'greeting',
 	    goodbye: 'goodbye',
-	    greeting: 'greeting'
+	    provide_popular_book: 'trending',
 	    // map inbound message  classifications to names of streams
+	},
+	autoResponses: {
+	    // configure responses to be automatically sent as predicted by the machine learning model
+	    //provide_popular_book: 'getTrending',
 	},
 	streams: {
 	    greeting: handleGreeting,
 	    goodbye: handleGoodbye,
-	    //	    main: 'onboarding',
-	    main: 'getTrending',
+	    trending: provideTrendingBook,
+
+	    //main: [provideTrendingBook],
+	    //main: 'getTrending',
 	    onboarding: [sayHello],
 	    end: [untrained],
-	    getTrending: [provideTrendingBook],
 	}
     })
 }

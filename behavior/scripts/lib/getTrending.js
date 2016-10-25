@@ -19,18 +19,15 @@ module.exports = function getTrending(locationName, next) {
       if (err || (res.statusCode != 200)) {
 	  console.log('error: error code ' + res.statusCode)
 	  console.log(err)
-	  
 	  throw new Error(err)
       }
 
       if (body) {
-console.log('here')
-//console.log(body)
-      const parsedResult = JSON.parse(body)
-console.log(parsedResult)
-      next(parsedResult)
-    } else {
-      next()
-    }
+	  const parsedResult = JSON.parse(body)
+	  console.log(parsedResult)
+	  next(parsedResult)
+      } else {
+	  next()
+      }
   })
 }

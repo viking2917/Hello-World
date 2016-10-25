@@ -11,14 +11,15 @@ module.exports = function getTrending(locationName, next) {
   console.log('Making HTTP GET request to:', requestUrl)
 
   request(requestUrl, (err, res, body) => {
-    if (err || (res.statusCode == 200)) {
-	console.log('error')
-	console.log(err)
+      if (err || (res.statusCode != 200)) {
+	  console.log('error: error code ' + res.statusCode)
+	  console.log(
+	  console.log(err)
+	  
+	  throw new Error(err)
+      }
 
-      throw new Error(err)
-    }
-
-    if (body) {
+      if (body) {
 console.log('here')
 //console.log(body)
       const parsedResult = JSON.parse(body)

@@ -12,6 +12,8 @@ module.exports = function getTrending(locationName, next) {
 
   request(requestUrl, (err, res, body) => {
     if (err) {
+	console.log(err);console.log(res);
+
       throw new Error(err)
     }
 

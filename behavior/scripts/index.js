@@ -1,6 +1,6 @@
 'use strict'
 
-require('./lib/urls');
+const _MyURLS = require('./lib/urls')
 const getTrending = require('./lib/getTrending')
 
 exports.handle = function handle(client) {
@@ -92,7 +92,7 @@ exports.handle = function handle(client) {
 		const weatherData = {
 		    BookTitle: resultBody.books[0].title,
 		    AuthorName: resultBody.books[0].authorstring,
-		    BookLink: 'https://www.thehawaiiproject.com/' + book_url(resultBody.books[0].title,resultBody.books[0].authorstring,resultBody.books[0].bookid),
+		    BookLink: 'https://local.thehawaiiproject.com/' + book_url(resultBody.books[0].title,resultBody.books[0].authorstring,resultBody.books[0].bookid),
 		    // 'https://www.thehawaiiproject.com/book/The-Girl-on-the-Train--by--Paula-Hawkins--47665'
 
 		    // temperature: resultBody.main.temp,

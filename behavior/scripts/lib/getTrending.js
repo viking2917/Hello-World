@@ -12,12 +12,17 @@ module.exports = function getTrending(locationName, next) {
 
   request(requestUrl, (err, res, body) => {
     if (err) {
-	console.log(err);console.log(res);
+console.log('error')
+	console.log(err)
+        console.log(res)
 
       throw new Error(err)
     }
 
     if (body) {
+console.log('here')
+console.log(res)
+console.log(body)
       const parsedResult = JSON.parse(body)
       next(parsedResult)
     } else {

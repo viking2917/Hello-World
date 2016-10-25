@@ -13,7 +13,6 @@ module.exports = function getTrending(locationName, next) {
   request(requestUrl, (err, res, body) => {
       if (err || (res.statusCode != 200)) {
 	  console.log('error: error code ' + res.statusCode)
-	  console.log(
 	  console.log(err)
 	  
 	  throw new Error(err)

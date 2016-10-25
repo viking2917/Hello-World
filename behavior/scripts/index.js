@@ -77,7 +77,7 @@ exports.handle = function handle(client) {
 
 	prompt(callback) {
 	    getTrending('New York', resultBody => {
-		if (!resultBody || resultBody.cod !== 200) {
+		if (!resultBody) {
 		    console.log('Error getting trending book.')
 		    callback()
 		    return

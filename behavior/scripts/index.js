@@ -63,7 +63,7 @@ exports.handle = function handle(client) {
 	},
 
 	prompt(callback) {
-	    getTrending('New York', resultBody => {
+	    getTrending(resultBody => {
 		if (!resultBody) {
 		    console.log('Error getting trending book.')
 		    callback()
@@ -78,17 +78,32 @@ exports.handle = function handle(client) {
 
 		console.log('sending book data:', bookData)
 		client.addResponse('app:response:name:provide_popular_book', bookData)
+		client.addImageResponse( resultBody.books[0].coverarturl, 'The product')
 		client.done()
 		callback()
 	    })
 	},
     })
 
+    const askBook = client.createStep({
+	satisfied() {
+	    return false
+	},
+	
+	prompt() {
+	    client.addTextResponse('What have you read recently you liked?')
+	    client.expect('liked_book', ['decline', 'provideSimilar'])
+	    client.done()
+	}
+    })
+
     client.runFlow({
 	classifications: {
 	    greeting: 'greeting',
 	    goodbye: 'goodbye',
-	    provide_popular_book: 'trending',
+	    ask_trending_book: 'trending',
+	    provideSimilar: 'similar',
+      
 	    // map inbound message  classifications to names of streams
 	},
 	autoResponses: {
@@ -99,6 +114,8 @@ exports.handle = function handle(client) {
 	    greeting: handleGreeting,
 	    goodbye: handleGoodbye,
 	    trending: provideTrendingBook,
+	    similar: provideTrendingBook,
+	    main: [askBook]
 
 	    //main: [provideTrendingBook],
 	    //main: 'getTrending',

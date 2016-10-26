@@ -3,7 +3,7 @@
 
 const request = require('request')
 
-module.exports = function getTrending(locationName, next) {
+module.exports = function getTrending(next) {
 
 
     // const requestUrl = `http://api.openweathermap.org/data/2.5/weather?units=imperial&appid=a7bd7ffb3b16c818c01ee4c5a88ccfc4&q=boston`

@@ -3,6 +3,18 @@
 const urlTools = require('./lib/urls')
 const getTrending = require('./lib/getTrending')
 
+
+const firstOfEntityRole = function(message, entity, role) {
+  role = role || 'generic';
+
+  const slots = message.slots
+  const entityValues = message.slots[entity]
+  const valsForRole = entityValues ? entityValues.values_by_role[role] : null
+
+  return valsForRole ? valsForRole[0] : null
+}
+
+
 exports.handle = function handle(client) {
 
     const sayHello = client.createStep({
@@ -91,22 +103,35 @@ exports.handle = function handle(client) {
 	},
 
 	prompt(callback) {
-	    getTrending(resultBody => {
+
+	    const bookTitle = firstOfEntityRole(client.getMessagePart(), 'BookTitle')
+	    console.log(bookTitle)
+
+	    getSimilar(bookTitle, resultBody => {
 		if (!resultBody) {
 		    console.log('Error getting trending book.')
 		    callback()
 		    return
 		}
 
-		const bookData = {
-		    BookTitle: resultBody.books[0].title,
-		    AuthorName: resultBody.books[0].authorstring,
-		    BookLink: 'https://www.thehawaiiproject.com/' + urlTools.book_url(resultBody.books[0].title,resultBody.books[0].authorstring,resultBody.books[0].bookid),
+		const relBook1 = resultBody.relatedbooks[0];
+		const relBook2 = resultBody.relatedbooks[1];
+		
+		const bookData1 = {
+		    BookTitle: relBook1.title,
+		    AuthorName: relBook1.authorstring,
+		    BookLink: 'https://www.thehawaiiproject.com/' + urlTools.book_url(relBook1.title,relBook1.authorstring,relBook1.bookid),
+		}
+		const bookData2 = {
+		    BookTitle: relBook2.title,
+		    AuthorName: relBook2.authorstring,
+		    BookLink: 'https://www.thehawaiiproject.com/' + urlTools.book_url(relBook2.title,relBook2.authorstring,relBook2.bookid),
 		}
 
-		console.log('sending book data:', bookData)
-		client.addResponse('app:response:name:provide_popular_book', bookData)
-		client.addImageResponse( resultBody.books[0].coverarturl, 'The product')
+		console.log('sending book data:', bookData1)
+		console.log('sending book data:', bookData2)
+		client.addResponse('app:response:name:provide_popular_book', bookData1)
+		client.addImageResponse( relBook1.coverarturl, 'The product')
 		client.done()
 		callback()
 	    })

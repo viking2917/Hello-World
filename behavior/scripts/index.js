@@ -102,7 +102,7 @@ exports.handle = function handle(client) {
 	    greeting: 'greeting',
 	    goodbye: 'goodbye',
 	    ask_trending_book: 'trending',
-	    provideSimilar: 'similar',
+	    provide/response_recommendation: 'similar',
       
 	    // map inbound message  classifications to names of streams
 	},
@@ -111,7 +111,8 @@ exports.handle = function handle(client) {
 	    //provide_popular_book: 'getTrending',
 	},
 	streams: {
-	    greeting: handleGreeting,
+	    //greeting: handleGreeting,
+	    greeting: [askBook],
 	    goodbye: handleGoodbye,
 	    trending: provideTrendingBook,
 	    similar: provideTrendingBook,
@@ -119,7 +120,8 @@ exports.handle = function handle(client) {
 
 	    //main: [provideTrendingBook],
 	    //main: 'getTrending',
-	    onboarding: [sayHello],
+	    //onboarding: [sayHello],
+	    onboarding: [askBook],
 	    end: [untrained],
 	}
     })

@@ -7,4 +7,4 @@ I liked [Dune](BookTitle) by [Frank Herbert](AuthorName).
 * liked_book
 
 < Cool. How about [Gone Girl](BookTitle) by [Fred Flintstone](AuthorName)?
-* provide/response_recommendation
+* provide_response_recommendation

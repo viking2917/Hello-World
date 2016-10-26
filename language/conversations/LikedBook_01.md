@@ -7,4 +7,4 @@ I liked [Dune](BookTitle) by [Frank Herbert](AuthorName)
 * liked_book
 
 < Cool. How about [Stranger in a Strange Land](BookTitle) by [Heinlein](AuthorName)? More: [https://www.thehawaiiproject.com/book/A-Game-of-Thrones--by--George-R.R.-Martin--20623](BookLink)
-* provide/response_recommendation
+* provide_response_recommendation

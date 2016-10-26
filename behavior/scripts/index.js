@@ -145,7 +145,7 @@ exports.handle = function handle(client) {
 	
 	prompt() {
 	    client.addTextResponse('What have you read recently you liked?')
-	    client.expect('liked_book', ['decline', 'provideSimilar'])
+	    client.expect('liked_book', ['decline', 'similar'])
 	    client.done()
 	}
     })
@@ -156,6 +156,7 @@ exports.handle = function handle(client) {
 	    goodbye: 'goodbye',
 	    ask_trending_book: 'trending',
 	    provide_response_recommendation: 'similar',
+	    liked_book: 'trending',
       
 	    // map inbound message  classifications to names of streams
 	},
@@ -168,7 +169,7 @@ exports.handle = function handle(client) {
 	    greeting: [askBook],
 	    goodbye: handleGoodbye,
 	    trending: provideTrendingBook,
-	    similar: provideTrendingBook,
+	    similar: provideSimilarBook,
 	    main: [askBook],
 
 	    //main: [provideTrendingBook],

@@ -115,7 +115,7 @@ exports.handle = function handle(client) {
 	    goodbye: handleGoodbye,
 	    trending: provideTrendingBook,
 	    similar: provideTrendingBook,
-	    main: [askBook]
+	    main: [askBook],
 
 	    //main: [provideTrendingBook],
 	    //main: 'getTrending',

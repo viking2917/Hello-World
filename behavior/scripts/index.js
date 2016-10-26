@@ -85,6 +85,34 @@ exports.handle = function handle(client) {
 	},
     })
 
+    const provideSimilarBook = client.createStep({
+	satisfied() {
+	    return false
+	},
+
+	prompt(callback) {
+	    getTrending(resultBody => {
+		if (!resultBody) {
+		    console.log('Error getting trending book.')
+		    callback()
+		    return
+		}
+
+		const bookData = {
+		    BookTitle: resultBody.books[0].title,
+		    AuthorName: resultBody.books[0].authorstring,
+		    BookLink: 'https://www.thehawaiiproject.com/' + urlTools.book_url(resultBody.books[0].title,resultBody.books[0].authorstring,resultBody.books[0].bookid),
+		}
+
+		console.log('sending book data:', bookData)
+		client.addResponse('app:response:name:provide_popular_book', bookData)
+		client.addImageResponse( resultBody.books[0].coverarturl, 'The product')
+		client.done()
+		callback()
+	    })
+	},
+    })
+
     const askBook = client.createStep({
 	satisfied() {
 	    return false
@@ -102,7 +130,7 @@ exports.handle = function handle(client) {
 	    greeting: 'greeting',
 	    goodbye: 'goodbye',
 	    ask_trending_book: 'trending',
-	    provide/response_recommendation: 'similar',
+	    provide_response_recommendation: 'similar',
       
 	    // map inbound message  classifications to names of streams
 	},

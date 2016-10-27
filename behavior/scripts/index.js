@@ -147,7 +147,7 @@ exports.handle = function handle(client) {
 		const relBook1 = resultBody.relatedbooks[0];
 		const relBook2 = resultBody.relatedbooks[1];
 
-		const shortdesc1 = striptags(relBook1.description).substring(0, 50) + "..."
+		const shortdesc1 = striptags(relBook1.description).substring(0,  50) + "..."
 		const shortdesc2 = striptags(relBook2.description).substring(0, 50) + "..."
 
 		console.log(relBook1)

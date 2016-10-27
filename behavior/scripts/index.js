@@ -4,7 +4,6 @@ const urlTools = require('./lib/urls')
 const getTrending = require('./lib/getTrending')
 const getSimilar = require('./lib/getSimilar')
 
-
 const firstOfEntityRole = function(message, entity, role) {
   role = role || 'generic';
   const slots = message.slots
@@ -13,7 +12,6 @@ const firstOfEntityRole = function(message, entity, role) {
 
   return valsForRole ? valsForRole[0] : null
 }
-
 
 exports.handle = function handle(client) {
 

@@ -20,3 +20,19 @@ Are you human?
 
 < Sorry, I didn't understand that. Not too smart yet...
 * apology/untrained
+
+Help
+* request_for_help
+
+How do you work?
+* request_for_help
+
+What can I ask?
+* request_for_help
+
+What can I ask you?
+* request_for_help
+
+How does this work?
+* request_for_help
+

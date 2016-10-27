@@ -4,7 +4,11 @@ const urlTools = require('./lib/urls')
 const getTrending = require('./lib/getTrending')
 const getSimilar = require('./lib/getSimilar')
 
-var striptags = require('striptags');
+// var striptags = require('striptags');
+
+function striptags(string) {
+    return string;
+}
 
 const firstOfEntityRole = function(message, entity, role) {
   role = role || 'generic';

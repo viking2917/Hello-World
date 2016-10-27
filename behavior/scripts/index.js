@@ -7,6 +7,7 @@ const getSimilar = require('./lib/getSimilar')
 // var striptags = require('striptags');
 
 function striptags(string) {
+
     return string;
 }
 

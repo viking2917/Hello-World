@@ -169,7 +169,8 @@ exports.handle = function handle(client) {
 
 		console.log('sending book data:', bookData1)
 		console.log('sending book data:', bookData2)
-		client.addTextResponse('(I think you said ' + bookTitle + ' by ' + bookAuthor + '.)')
+		// client.addTextResponse('(I think you said ' + bookTitle + ' by ' + bookAuthor + '.)')
+		client.addTextResponse('(I think you typed a title of ' + bookTitle + ' and an author of ' + bookAuthor + ' so I assume you meant ' + resultBody.title + ' by ' + resultBody.authorstring + '.)')
 		client.addResponse('app:response:name:provide_response_recommendation', bookData1)
 		client.addImageResponse( relBook1.coverarturl, 'The product')
 
@@ -219,7 +220,7 @@ exports.handle = function handle(client) {
 	prompt() {
 	    client.addResponse('app:response:name:welcome')
 	    client.addTextResponse('What have you read recently you liked?')
-	    client.expect('liked_book', ['decline', 'similar1'])  // these are streams, not message classifications.
+	    // client.expect('liked_book', ['decline', 'similar1'])  // these are streams, not message classifications.
 	    client.done()
 	}
     })
@@ -244,6 +245,7 @@ exports.handle = function handle(client) {
 	    trending: provideTrendingBook,
 	    similar: provideSimilarBook,
 	    helpStream: [provideHelp],
+	    decline: handleGoodbye,
 	    //main: [askBook],
 	    //onboarding: [sayHello],
 

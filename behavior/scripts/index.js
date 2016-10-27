@@ -33,6 +33,21 @@ exports.handle = function handle(client) {
 	}
     })
 
+    const sayHello = client.createStep({
+	satisfied() {
+	    return Boolean(client.getConversationState().helpSent)
+	},
+
+	prompt() {
+	    client.addResponse('app:response:name:help')
+	    client.addResponse('app:response:name:more_help')
+	    client.updateConversationState({
+		helpSent: true
+	    })
+	    client.done()
+	}
+    })
+
     const untrained = client.createStep({
 	satisfied() {
 	    return false
@@ -164,6 +179,7 @@ exports.handle = function handle(client) {
 	    goodbye: 'goodbyeStream',
 	    ask_trending_book: 'trending',
 	    liked_book: 'similar',
+	    request_for_help: 'helpStream',
 	},
 	autoResponses: {
 	    // configure responses to be automatically sent as predicted by the machine learning model
@@ -175,6 +191,7 @@ exports.handle = function handle(client) {
 	    goodbyeStream: handleGoodbye,
 	    trending: provideTrendingBook,
 	    similar: provideSimilarBook,
+	    helpStream: provideHelp,
 	    //main: [askBook],
 	    //onboarding: [sayHello],
 

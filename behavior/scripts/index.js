@@ -39,7 +39,6 @@ exports.handle = function handle(client) {
 	},
 	
 	prompt() {
-
 	    if(!client.getConversationState().initialHelpSent) {
 		client.addResponse('app:response:name:help')
 		client.updateConversationState({
@@ -67,7 +66,6 @@ exports.handle = function handle(client) {
 	}
     })
     
-
     const handleGreeting = client.createStep({
 	satisfied() {
 	    return false
@@ -146,7 +144,7 @@ exports.handle = function handle(client) {
 
 		const relBook1 = resultBody.relatedbooks[0];
 		const relBook2 = resultBody.relatedbooks[1];
-		
+		console.log(relBook1)
 		const bookData1 = {
 		    BookTitle: relBook1.title,
 		    AuthorName: relBook1.authorstring,
@@ -163,6 +161,46 @@ exports.handle = function handle(client) {
 		client.addTextResponse('(I think you said ' + bookTitle + ' by ' + bookAuthor + '.)')
 		client.addResponse('app:response:name:provide_response_recommendation', bookData1)
 		client.addImageResponse( relBook1.coverarturl, 'The product')
+
+		client.addCarouselListResponse({
+		    items: [
+			{
+			    'media_url': 'https://c2.staticflickr.com/4/3512/5763418254_e2f42b2224_b.jpg',
+			    'media_type': 'image/jpeg', 
+			    'description': 'Yosemite is a really nice place.',
+			    title: 'Yosemite',
+			    actions: [
+				{
+				    type: 'postback',
+				    text: 'Visit',
+				    payload: {
+					data: {
+					    action: 'visit',
+					    park: 'yosemite'
+					},
+					version: '1',
+					stream: 'selectPark',
+				    },
+				},
+			    ],
+			},
+			{
+			    'media_url': 'https://upload.wikimedia.org/wikipedia/commons/3/36/Morning_Glory_Pool.jpg',
+			    'media_type': 'image/jpeg', 
+			    'description': 'Yellowstone showcases geology in its most raw form.',
+			    title: 'Yellowstone',
+			    actions: [
+				{
+				    type: 'link',
+				    text: 'View info',
+				    uri: 'https://en.wikipedia.org/wiki/Yellowstone_National_Park',
+				},
+			    ],
+			},
+		    ],
+		})
+
+
 		client.done()
 		callback()
 	    })

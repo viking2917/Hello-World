@@ -7,8 +7,8 @@ const getSimilar = require('./lib/getSimilar')
 // var striptags = require('striptags');
 
 function striptags(string) {
-
-    return string;
+    return string.replace(/<\/?[^>]+(>|$)/g, "");
+//    return string;
 }
 
 const firstOfEntityRole = function(message, entity, role) {

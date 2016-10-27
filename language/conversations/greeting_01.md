@@ -14,3 +14,9 @@ Goodbye
 
 < Mahalo
 * thanks
+
+Are you human?
+* turing/human
+
+< Sorry, I didn't understand that. Not too smart yet...
+* apology/untrained

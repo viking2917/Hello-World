@@ -6,8 +6,8 @@ module.exports = function getSimilar(bookTitle, bookAuthor, next) {
 
 
     // const requestUrl = `http://api.openweathermap.org/data/2.5/weather?units=imperial&appid=a7bd7ffb3b16c818c01ee4c5a88ccfc4&q=boston`
-    const title = bookTitle.value;
-    const author = (typeof bookAuthor.value != 'undefined') ? bookAuthor.value : "";
+    const title = bookTitle
+    const author = bookAuthor
     
        const requestUrl = 
 { method: 'GET'

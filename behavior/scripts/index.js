@@ -105,10 +105,14 @@ exports.handle = function handle(client) {
 	prompt(callback) {
 	    console.log('extracting slots')
 
-	    const bookTitle = firstOfEntityRole(client.getMessagePart(), 'booktitle')
-	    console.log(bookTitle.value)
-	    const bookAuthor = firstOfEntityRole(client.getMessagePart(), 'authorname')
-	    console.log(bookAuthor.value)
+	    var bookTitle = firstOfEntityRole(client.getMessagePart(), 'booktitle')
+	    if(!bookTitle) bookTitle = ""
+	    else bookTitle = bookTitle.value
+	    console.log('Title: ' + bookTitle)
+	    var bookAuthor = firstOfEntityRole(client.getMessagePart(), 'authorname')
+	    if(!bookAuthor) bookAuthor = ""
+	    else bookAuthor = bookAuthor.value
+	    console.log('Author: ' + bookAuthor)
 
 	    getSimilar(bookTitle, bookAuthor, resultBody => {
 		if (!resultBody) {
@@ -133,6 +137,7 @@ exports.handle = function handle(client) {
 
 		console.log('sending book data:', bookData1)
 		console.log('sending book data:', bookData2)
+		client.addTextResponse('(I think you said ' + bookTitle + ' by ' + bookAuthor + '.)')
 		client.addResponse('app:response:name:provide_response_recommendation', bookData1)
 		client.addImageResponse( relBook1.coverarturl, 'The product')
 		client.done()

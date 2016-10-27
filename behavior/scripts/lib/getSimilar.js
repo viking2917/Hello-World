@@ -2,13 +2,16 @@
 
 const request = require('request')
 
-module.exports = function getSimilar(bookTitle, next) {
+module.exports = function getSimilar(bookTitle, bookAuthor, next) {
 
 
     // const requestUrl = `http://api.openweathermap.org/data/2.5/weather?units=imperial&appid=a7bd7ffb3b16c818c01ee4c5a88ccfc4&q=boston`
+    const title = bookTitle.value;
+    const author = (typeof bookAuthor.value != 'undefined') ? bookAuthor.value : "";
+    
        const requestUrl = 
 { method: 'GET'
-  , uri: `http://www.thehawaiiproject.com/get_book_details.php?format=json&bookid=12345`
+  , uri: `http://www.thehawaiiproject.com/get_book_details.php?format=json&title=${title}&author=${author}`
   , timeout: 15000 }
 
 
@@ -23,7 +26,7 @@ module.exports = function getSimilar(bookTitle, next) {
 
       if (body) {
 	  const parsedResult = JSON.parse(body)
-	  console.log(parsedResult)
+//	  console.log(parsedResult)
 	  next(parsedResult)
       } else {
 	  next()

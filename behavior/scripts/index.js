@@ -2,11 +2,11 @@
 
 const urlTools = require('./lib/urls')
 const getTrending = require('./lib/getTrending')
+const getSimilar = require('./lib/getSimilar')
 
 
 const firstOfEntityRole = function(message, entity, role) {
   role = role || 'generic';
-
   const slots = message.slots
   const entityValues = message.slots[entity]
   const valsForRole = entityValues ? entityValues.values_by_role[role] : null
@@ -104,10 +104,12 @@ exports.handle = function handle(client) {
 
 	prompt(callback) {
 
-	    const bookTitle = firstOfEntityRole(client.getMessagePart(), 'BookTitle')
+	    const bookTitle = firstOfEntityRole(client.getMessagePart(), 'booktitle')
 	    console.log(bookTitle)
+	    const bookAuthor = firstOfEntityRole(client.getMessagePart(), 'authorname')
+	    console.log(bookAuthor)
 
-	    getSimilar(bookTitle, resultBody => {
+	    getSimilar(bookTitle, bookAuthor, resultBody => {
 		if (!resultBody) {
 		    console.log('Error getting trending book.')
 		    callback()
@@ -130,7 +132,7 @@ exports.handle = function handle(client) {
 
 		console.log('sending book data:', bookData1)
 		console.log('sending book data:', bookData2)
-		client.addResponse('app:response:name:provide_popular_book', bookData1)
+		client.addResponse('app:response:name:provide_response_recommendation', bookData1)
 		client.addImageResponse( relBook1.coverarturl, 'The product')
 		client.done()
 		callback()
@@ -145,7 +147,7 @@ exports.handle = function handle(client) {
 	
 	prompt() {
 	    client.addTextResponse('What have you read recently you liked?')
-	    client.expect('liked_book', ['decline', 'similar'])
+	    client.expect('liked_book', ['decline', 'similar1'])  // these are streams, not message classifications.
 	    client.done()
 	}
     })
@@ -155,8 +157,8 @@ exports.handle = function handle(client) {
 	    greeting: 'greeting',
 	    goodbye: 'goodbye',
 	    ask_trending_book: 'trending',
-	    provide_response_recommendation: 'similar',
-	    liked_book: 'trending',
+	    //provide_response_recommendation: 'similar',
+	    liked_book: 'similar',
       
 	    // map inbound message  classifications to names of streams
 	},

@@ -165,35 +165,28 @@ exports.handle = function handle(client) {
 		client.addCarouselListResponse({
 		    items: [
 			{
-			    'media_url': 'https://c2.staticflickr.com/4/3512/5763418254_e2f42b2224_b.jpg',
+			    'media_url': relBook1.coverarturl,
 			    'media_type': 'image/jpeg', 
-			    'description': 'Yosemite is a really nice place.',
-			    title: 'Yosemite',
+			    'description': relBook1.description,
+			    title: relBook1.title,
 			    actions: [
 				{
-				    type: 'postback',
-				    text: 'Visit',
-				    payload: {
-					data: {
-					    action: 'visit',
-					    park: 'yosemite'
-					},
-					version: '1',
-					stream: 'selectPark',
-				    },
+				    type: 'link',
+				    text: 'See More',
+				    uri: bookData1.BookLink,
 				},
 			    ],
 			},
 			{
-			    'media_url': 'https://upload.wikimedia.org/wikipedia/commons/3/36/Morning_Glory_Pool.jpg',
+			    'media_url': relBook2.coverarturl,
 			    'media_type': 'image/jpeg', 
-			    'description': 'Yellowstone showcases geology in its most raw form.',
-			    title: 'Yellowstone',
+			    'description': relBook2.description,
+			    title: relBook2.title,
 			    actions: [
 				{
 				    type: 'link',
-				    text: 'View info',
-				    uri: 'https://en.wikipedia.org/wiki/Yellowstone_National_Park',
+				    text: 'See More',
+				    uri: bookData2.BookLink,
 				},
 			    ],
 			},

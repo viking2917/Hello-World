@@ -39,11 +39,19 @@ exports.handle = function handle(client) {
 	},
 	
 	prompt() {
-	    client.addResponse('app:response:name:help')
-	    client.addResponse('app:response:name:more_help')
-	    client.updateConversationState({
-		helpSent: true
-	    })
+
+	    if(!client.getConversationState().initialHelpSent) {
+		client.addResponse('app:response:name:help')
+		client.updateConversationState({
+		    initialHelpSent: true
+		})
+	    }
+	    else {
+		client.addResponse('app:response:name:more_help')
+		client.updateConversationState({
+		    helpSent: true
+		})
+	    }
 	    client.done()
 	}
     })
@@ -130,6 +138,8 @@ exports.handle = function handle(client) {
 	    getSimilar(bookTitle, bookAuthor, resultBody => {
 		if (!resultBody) {
 		    console.log('Error getting trending book.')
+		    client.addResponse('app:response:name:apology/untrained')
+		    client.done()
 		    callback()
 		    return
 		}
@@ -191,11 +201,12 @@ exports.handle = function handle(client) {
 	    goodbyeStream: handleGoodbye,
 	    trending: provideTrendingBook,
 	    similar: provideSimilarBook,
-	    helpStream: provideHelp,
+	    helpStream: [provideHelp],
 	    //main: [askBook],
 	    //onboarding: [sayHello],
 
-	    end: [untrained],
+	    // end: [untrained],
+	    end: [provideHelp],
 	}
     })
 }

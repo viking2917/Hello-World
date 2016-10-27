@@ -9,7 +9,7 @@ module.exports = function getTrending(next) {
     // const requestUrl = `http://api.openweathermap.org/data/2.5/weather?units=imperial&appid=a7bd7ffb3b16c818c01ee4c5a88ccfc4&q=boston`
        const requestUrl = 
 { method: 'GET'
-  , uri: `http://local.thehawaiiproject.com/get_books_for_categories.php?format=json&whitelabel=0&l=2&o=0&categories=trending-books`
+  , uri: `http://www.thehawaiiproject.com/get_books_for_categories.php?format=json&whitelabel=0&l=2&o=0&categories=trending-books`
   , timeout: 15000 }
 
 

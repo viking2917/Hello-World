@@ -11,7 +11,7 @@ module.exports = function getSimilar(bookTitle, bookAuthor, next) {
     
        const requestUrl = 
 { method: 'GET'
-  , uri: `http://www.thehawaiiproject.com/get_book_details.php?format=json&title=${title}&author=${author}`
+  , uri: `http://local.thehawaiiproject.com/get_book_details.php?format=json&title=${title}&author=${author}`
   , timeout: 15000 }
 
 

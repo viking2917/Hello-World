@@ -146,6 +146,7 @@ exports.handle = function handle(client) {
 	},
 	
 	prompt() {
+	    client.addResponse('app:response:name:welcome')
 	    client.addTextResponse('What have you read recently you liked?')
 	    client.expect('liked_book', ['decline', 'similar1'])  // these are streams, not message classifications.
 	    client.done()
@@ -154,13 +155,11 @@ exports.handle = function handle(client) {
 
     client.runFlow({
 	classifications: {
-	    greeting: 'greeting',
-	    goodbye: 'goodbye',
-	    ask_trending_book: 'trending',
-	    //provide_response_recommendation: 'similar',
-	    liked_book: 'similar',
-      
 	    // map inbound message  classifications to names of streams
+	    greeting: 'greetingStream',
+	    goodbye: 'goodbyeStream',
+	    ask_trending_book: 'trending',
+	    liked_book: 'similar',
 	},
 	autoResponses: {
 	    // configure responses to be automatically sent as predicted by the machine learning model
@@ -168,16 +167,16 @@ exports.handle = function handle(client) {
 	},
 	streams: {
 	    //greeting: handleGreeting,
-	    greeting: [askBook],
-	    goodbye: handleGoodbye,
+	    greetingStream: [askBook],
+	    goodbyeStream: handleGoodbye,
 	    trending: provideTrendingBook,
 	    similar: provideSimilarBook,
-	    main: [askBook],
+	    //main: [askBook],
 
 	    //main: [provideTrendingBook],
 	    //main: 'getTrending',
 	    //onboarding: [sayHello],
-	    onboarding: [askBook],
+	    // onboarding: [askBook],
 	    end: [untrained],
 	}
     })

@@ -4,6 +4,8 @@ const urlTools = require('./lib/urls')
 const getTrending = require('./lib/getTrending')
 const getSimilar = require('./lib/getSimilar')
 
+var striptags = require('striptags');
+
 const firstOfEntityRole = function(message, entity, role) {
   role = role || 'generic';
   const slots = message.slots
@@ -144,6 +146,10 @@ exports.handle = function handle(client) {
 
 		const relBook1 = resultBody.relatedbooks[0];
 		const relBook2 = resultBody.relatedbooks[1];
+
+		const shortdesc1 = striptags(relBook1.description).substring(0, 50) + "..."
+		const shortdesc2 = striptags(relBook2.description).substring(0, 50) + "..."
+
 		console.log(relBook1)
 		const bookData1 = {
 		    BookTitle: relBook1.title,
@@ -167,8 +173,7 @@ exports.handle = function handle(client) {
 			{
 			    'media_url': relBook1.coverarturl,
 			    'media_type': 'image/jpeg', 
-			    'description': 'Description',
-			    // 'description': relBook1.description,
+			    'description': shortdesc1,
 			    title: relBook1.title,
 			    actions: [
 				{
@@ -181,8 +186,7 @@ exports.handle = function handle(client) {
 			{
 			    'media_url': relBook2.coverarturl,
 			    'media_type': 'image/jpeg', 
-			    'description': 'Description',
-			    //'description': relBook2.description,
+			    'description': shortdesc2,
 			    title: relBook2.title,
 			    actions: [
 				{

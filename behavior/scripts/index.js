@@ -103,11 +103,12 @@ exports.handle = function handle(client) {
 	},
 
 	prompt(callback) {
+	    console.log('extracting slots')
 
 	    const bookTitle = firstOfEntityRole(client.getMessagePart(), 'booktitle')
-	    console.log(bookTitle)
+	    console.log(bookTitle.value)
 	    const bookAuthor = firstOfEntityRole(client.getMessagePart(), 'authorname')
-	    console.log(bookAuthor)
+	    console.log(bookAuthor.value)
 
 	    getSimilar(bookTitle, bookAuthor, resultBody => {
 		if (!resultBody) {
@@ -166,17 +167,14 @@ exports.handle = function handle(client) {
 	    //provide_popular_book: 'getTrending',
 	},
 	streams: {
-	    //greeting: handleGreeting,
+	    //greetingStream: handleGreeting,
 	    greetingStream: [askBook],
 	    goodbyeStream: handleGoodbye,
 	    trending: provideTrendingBook,
 	    similar: provideSimilarBook,
 	    //main: [askBook],
-
-	    //main: [provideTrendingBook],
-	    //main: 'getTrending',
 	    //onboarding: [sayHello],
-	    // onboarding: [askBook],
+
 	    end: [untrained],
 	}
     })

@@ -84,6 +84,21 @@ exports.handle = function handle(client) {
 	}
     })
 
+    const handleTuring = client.createStep({
+	satisfied() {
+	    return Boolean(client.getConversationState().imabotSent)
+
+	},
+
+	prompt() {
+	    client.addResponse('app:response:name:not_human')
+	    client.updateConversationState({
+		imabotSent: true
+	    })
+	    client.done()
+	}
+    })
+
     const handleGoodbye = client.createStep({
 	satisfied() {
 	    return false
@@ -233,6 +248,7 @@ exports.handle = function handle(client) {
 	    ask_trending_book: 'trending',
 	    liked_book: 'similar',
 	    request_for_help: 'helpStream',
+	    turing: 'turingStream',
 	},
 	autoResponses: {
 	    // configure responses to be automatically sent as predicted by the machine learning model
@@ -242,6 +258,7 @@ exports.handle = function handle(client) {
 	    //greetingStream: handleGreeting,
 	    greetingStream: [askBook],
 	    goodbyeStream: handleGoodbye,
+	    turingStream: handleTuring,
 	    trending: provideTrendingBook,
 	    similar: provideSimilarBook,
 	    helpStream: [provideHelp],

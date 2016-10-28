@@ -6,6 +6,12 @@ timestamp: 2016-10-19T17:07:48.259701964-04:00
 Hi
 * greeting
 
+Hello
+* greeting
+
+Aloha!
+* greeting
+
 Hey can you recommend me a book?
 * greeting
 

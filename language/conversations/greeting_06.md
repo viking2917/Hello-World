@@ -9,3 +9,8 @@ Hi, I'm looking for a good book.
 < Aloha Human!
 * welcome
 
+< What have you read recently you liked?
+* ask_liked_book
+
+[Gone with the Wind](BookTitle) by [Frank Herbert](AuthorName) was good
+* liked_book

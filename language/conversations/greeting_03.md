@@ -8,3 +8,6 @@ Hello
 
 < Aloha Human!
 * welcome
+
+< What have you read recently you liked?
+* ask_liked_book

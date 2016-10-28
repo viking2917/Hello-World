@@ -1,0 +1,90 @@
+
+behavior/scripts/index.js,53
+const urlTools 3,14
+const firstOfEntityRole 14,304
+
+behavior/scripts/lib/getSimilar.js,20
+const request 3,14
+
+behavior/scripts/lib/getTrending.js,20
+const request 3,14
+
+behavior/scripts/lib/urls.js,65
+function book_url 3,2
+function normalize_string_for_url 13,345
+
+language/conversations/LikedBook_01.md,14
+I liked 6,76
+
+language/conversations/LikedBook_02.md,30
+< Nice. Then how about 9,121
+
+language/conversations/LikedBook_03.md,41
+[Gone with the Wind](BookTitle) by 6,76
+
+language/conversations/LikedBook_04.md,31
+< Sweet! Then how about 9,137
+
+language/conversations/LikedBook_05.md,36
+[Gates of Fire](BookTitle) by 6,76
+
+language/conversations/LikedBook_07.md,14
+I liked 6,76
+
+language/conversations/LikedBook_08.md,16
+I enjoyed 6,76
+
+language/conversations/LikedBook_09.md,16
+I enjoyed 6,76
+
+language/conversations/LikedBook_10.md,16
+I enjoyed 6,76
+
+language/conversations/LikedBook_11.md,16
+I enjoyed 6,76
+
+language/conversations/LikedBook_12.md,16
+I enjoyed 6,76
+
+language/conversations/LikedBook_13.md,16
+I enjoyed 6,76
+
+language/conversations/TrendingBook_01.md,41
+< [Game of Thrones](BookTitle) by 9,140
+
+language/conversations/TrendingBook_02.md,47
+< [The Girl on the Train](BookTitle) by 9,140
+
+language/conversations/TrendingBook_03.md,47
+< [The Girl on the Train](BookTitle) by 9,122
+
+language/conversations/TrendingBook_04.md,39
+< All the cool kids are reading 9,135
+
+language/conversations/TrendingBook_05.md,47
+< [The Girl on the Train](BookTitle) by 9,140
+
+language/conversations/TrendingBook_06.md,30
+< [Dune](BookTitle) by 9,127
+
+language/conversations/greeting_01.md,20
+< Nope. But,15,147
+
+language/conversations/greeting_02.md,20
+< Nope. But,15,147
+
+language/conversations/greeting_04.md,21
+< Aloha to you,9,94
+
+language/conversations/greeting_06.md,9
+Hi,6,75
+
+language/conversations/help_02.md,0
+
+language/conversations/help_01.md,0
+
+language/conversations/greeting_05.md,0
+
+language/conversations/greeting_03.md,0
+
+language/conversations/greeting1.md,0

@@ -3,13 +3,9 @@
 const urlTools = require('./lib/urls')
 const getTrending = require('./lib/getTrending')
 const getSimilar = require('./lib/getSimilar')
+const setClientCache = require('./lib/setClientCache')
 
 var striptags = require('striptags');
-
-// function striptags(string) {
-//     return string.replace(/<\/?[^>]+(>|$)/g, "");
-// //    return string;
-// }
 
 const firstOfEntityRole = function(message, entity, role) {
   role = role || 'generic';
@@ -130,6 +126,7 @@ exports.handle = function handle(client) {
 		}
 
 		console.log('sending book data:', bookData)
+		setClientCache.recordBookSent(client, resultBody.books[0])
 		client.addResponse('app:response:name:provide_popular_book', bookData)
 		client.addImageResponse( resultBody.books[0].coverarturl, 'The product')
 		client.done()
@@ -164,6 +161,9 @@ exports.handle = function handle(client) {
 		    return
 		}
 
+		const theBook = resultBody;
+		setClientCache.recordBookRead(client, theBook)
+
 		const relBook1 = resultBody.relatedbooks[0];
 		const relBook2 = resultBody.relatedbooks[1];
 
@@ -184,8 +184,10 @@ exports.handle = function handle(client) {
 
 		console.log('sending book data:', bookData1)
 		console.log('sending book data:', bookData2)
+		setClientCache.recordBookSent(client, relBook1)
+		setClientCache.recordBookSent(client, relBook2)
 		// client.addTextResponse('(I think you said ' + bookTitle + ' by ' + bookAuthor + '.)')
-		client.addTextResponse('(I think you typed a title of ' + bookTitle + ' and an author of ' + bookAuthor + ' so I assume you meant ' + resultBody.title + ' by ' + resultBody.authorstring + '.)')
+		client.addTextResponse('(I think you typed a title of <' + bookTitle + '> and an author of <' + bookAuthor + '> so I assume you meant ' + resultBody.title + ' by ' + resultBody.authorstring + '.)')
 		client.addResponse('app:response:name:provide_response_recommendation', bookData1)
 		client.addImageResponse( relBook1.coverarturl, 'The product')
 
@@ -234,21 +236,54 @@ exports.handle = function handle(client) {
 	
 	prompt() {
 	    client.addResponse('app:response:name:welcome')
-	    client.addTextResponse('What have you read recently you liked?')
+	    client.addResponse('app:response:name:ask_liked_book')
+	    // client.addTextResponse('What have you read recently you liked?')
 	    // client.expect('liked_book', ['decline', 'similar1'])  // these are streams, not message classifications.
 	    client.done()
 	}
     })
     
+    const rejectReco = client.createStep({
+	satisfied() {
+	    return false
+	},
+
+	prompt(callback) {
+
+	    // if rejection type is bad book, add it to the banned list.
+	    // if rejection type is already read, add it to the read list. 
+	    // then cough up another one.
+
+
+	    var base_type = client.getMessagePart().classification.base_type.value
+	    var sub_type = client.getMessagePart().classification.sub_type.value
+	    console.log(sub_type)
+	    if(sub_type == 'bad_recommendation') {
+		console.log('bad reco. forget')
+	    }
+	    else if (sub_type == 'already_read') {
+		var bookid = setClientCache.getLastReco(client)
+		console.log('recording read of: ' + bookid)
+		// this takes book, not bookid
+		setClientCache.recordBookRead(client, bookid)
+	    }
+	    
+	    client.addResponse('app:response:name:provide_popular_book', bookData)
+	    client.done()
+	    callback()
+	},
+    })
+
     client.runFlow({
 	classifications: {
 	    // map inbound message  classifications to names of streams
 	    greeting: 'greetingStream',
 	    goodbye: 'goodbyeStream',
-	    ask_trending_book: 'trending',
-	    liked_book: 'similar',
+	    ask_trending_book: 'trendingStream',
+	    liked_book: 'similarStream',
 	    request_for_help: 'helpStream',
 	    turing: 'turingStream',
+	    disagree: 'rejectRecoStream',
 	},
 	autoResponses: {
 	    // configure responses to be automatically sent as predicted by the machine learning model
@@ -259,13 +294,14 @@ exports.handle = function handle(client) {
 	    greetingStream: [askBook],
 	    goodbyeStream: handleGoodbye,
 	    turingStream: handleTuring,
-	    trending: provideTrendingBook,
-	    similar: provideSimilarBook,
+	    trendingStream: provideTrendingBook,
+	    similarStream: provideSimilarBook,
+	    rejectRecoStream: rejectReco,
 	    helpStream: [provideHelp],
 	    decline: handleGoodbye,
 	    //main: [askBook],
 	    //onboarding: [sayHello],
-
+	    
 	    // end: [untrained],
 	    end: [provideHelp],
 	}

@@ -3,12 +3,6 @@ title: help_01
 timestamp: 2016-10-19T17:07:48.259701964-05:00
 ---
 
-Hi
-* greeting
-
-< Aloha Human!
-* welcome
-
 help
 * request_for_help
 

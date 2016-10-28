@@ -19,7 +19,7 @@ What's popular right now?
 * provide_response_recommendation
 
 I've already read that.
-* disagree
+* disagree/already_read
 
 < OK, you've read [Game of Thrones](BookTitle). I'll remember that for the future. How about [The Iron Throne](BookTitle), by [Maurice Druon](AuthorName)? It's also getting a lot of attention right now.
 * provide_another_response_recommendation

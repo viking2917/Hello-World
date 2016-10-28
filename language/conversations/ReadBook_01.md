@@ -19,7 +19,7 @@ What's popular right now?
 * provide_response_recommendation
 
 not interested
-* disagree
+* disagree/bad_recommendation
 
 < OK, you've read [Dune](BookTitle). I'll remember that for the future. How about [Neuromancer](BookTitle), by [William Gibson](AuthorName)? It's also getting a lot of attention right now.
 * provide_another_response_recommendation

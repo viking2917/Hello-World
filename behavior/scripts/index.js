@@ -197,7 +197,7 @@ exports.handle = function handle(client) {
 			    'media_url': relBook1.coverarturl,
 			    'media_type': 'image/jpeg', 
 			    'description': shortdesc1,
-			    title: relBook1.title,
+			    title: relBook1.title.substring(0,78),
 			    actions: [
 				{
 				    type: 'link',
@@ -210,7 +210,7 @@ exports.handle = function handle(client) {
 			    'media_url': relBook2.coverarturl,
 			    'media_type': 'image/jpeg', 
 			    'description': shortdesc2,
-			    title: relBook2.title,
+			    title: relBook2.title.substring(0,78),
 			    actions: [
 				{
 				    type: 'link',
